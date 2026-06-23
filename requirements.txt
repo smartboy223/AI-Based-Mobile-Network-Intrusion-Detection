@@ -1,0 +1,33 @@
+# AI-Based Mobile Network Intrusion Detection — Python dependencies
+#
+# Canonical list of Python packages the project needs.
+# The same versions live in backend/requirements.txt; START.bat installs
+# from backend/requirements.txt, so the two MUST stay in sync.
+#
+# Install manually with:    python -m pip install -r requirements.txt
+# Or just run START.bat — it installs on first run.
+#
+# Tested with Python 3.10 on Windows. 3.11 / 3.12 also work; see
+# MOVING_TO_NEW_PC.md for TensorFlow CPU notes (needs AVX2).
+
+# --- ML & data ---
+numpy>=1.26,<3
+pandas>=2.1,<3
+scikit-learn>=1.4,<2
+joblib>=1.3,<2
+
+# --- API server ---
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30,<1
+python-multipart>=0.0.9,<1
+
+# --- Autoencoder (optional). If TF crashes on import, set MNIDS_DISABLE_TF=1
+#     in backend/.env. RF + Isolation Forest still serve predictions.
+tensorflow>=2.15,<3
+
+# --- Reporting / charts (used by training pipeline) ---
+matplotlib>=3.8,<4
+plotly>=5.18,<6
+
+# --- Optional: PCAP parsing (only needed for pcap_to_training_csv.py edits) ---
+# scapy>=2.5.0

@@ -1,0 +1,8 @@
+{
+  "description": "Test dataset - NOT used in training",
+  "created": "2026-05-15T06:52:57.392615",
+  "normal_samples": 75,
+  "attack_samples": 75,
+  "total_samples": 150,
+  "purpose": "Evaluate model on unseen data"
+}

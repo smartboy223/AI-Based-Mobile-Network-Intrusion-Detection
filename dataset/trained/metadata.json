@@ -1,0 +1,53 @@
+{
+  "generated_at": "2026-05-13T19:39:55.093863",
+  "normal_samples": 100,
+  "attack_samples": {
+    "dos_ddos": 50,
+    "port_scan": 30,
+    "data_exfiltration": 20,
+    "total": 100
+  },
+  "total_samples": 200,
+  "features": [
+    "src_ip",
+    "dst_ip",
+    "src_port",
+    "dst_port",
+    "protocol",
+    "flow_duration",
+    "packet_count",
+    "avg_packet_size",
+    "min_packet_size",
+    "max_packet_size",
+    "std_packet_size",
+    "avg_inter_arrival",
+    "min_inter_arrival",
+    "max_inter_arrival",
+    "std_inter_arrival",
+    "tcp_packet_count",
+    "udp_packet_count",
+    "icmp_packet_count",
+    "tcp_syn_count",
+    "tcp_ack_count",
+    "tcp_rst_count",
+    "tcp_fin_count",
+    "is_suspicious_port",
+    "is_high_volume",
+    "has_unusual_protocol",
+    "total_bytes",
+    "bytes_per_packet_ratio",
+    "packet_rate",
+    "tcp_connection_established",
+    "label"
+  ],
+  "class_distribution": {
+    "normal": 100,
+    "attack": 100
+  },
+  "attack_types": [
+    "DoS/DDoS",
+    "Port Scan",
+    "Data Exfiltration"
+  ],
+  "5g_focus": "Packet size analysis, traffic patterns, protocol behavior"
+}

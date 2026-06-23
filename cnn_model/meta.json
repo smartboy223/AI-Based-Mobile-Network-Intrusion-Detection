@@ -1,0 +1,98 @@
+{
+  "model_version": "mnids-lab-hybrid-rf-if-ae-2.1-eval",
+  "feature_names": [
+    "log_duration",
+    "log_bytes",
+    "log_packets",
+    "avg_pkt",
+    "sport_n",
+    "dport_n",
+    "is_tcp",
+    "is_udp",
+    "is_sctp",
+    "is_gtpu",
+    "is_ssh",
+    "is_dns",
+    "log_bytes_per_sec",
+    "log_pkts_per_sec"
+  ],
+  "labels": [
+    "Benign",
+    "Suspicious",
+    "Malicious"
+  ],
+  "train_rows": 46800,
+  "test_rows": 13200,
+  "total_rows": 60000,
+  "metrics": {
+    "accuracy_holdout": 0.9804,
+    "f1_macro_holdout": 0.9804,
+    "f1_weighted_holdout": 0.9804,
+    "fpr_macro_avg_holdout": 0.0098
+  },
+  "evaluation": {
+    "holdout_per_class": {
+      "Benign": {
+        "precision": 0.9646,
+        "recall": 0.977,
+        "f1": 0.9708,
+        "support": 4400,
+        "fpr_one_vs_rest": 0.018
+      },
+      "Suspicious": {
+        "precision": 0.9995,
+        "recall": 1.0,
+        "f1": 0.9998,
+        "support": 4400,
+        "fpr_one_vs_rest": 0.0002
+      },
+      "Malicious": {
+        "precision": 0.9772,
+        "recall": 0.9641,
+        "f1": 0.9706,
+        "support": 4400,
+        "fpr_one_vs_rest": 0.0112
+      }
+    },
+    "cross_validation_rf": {
+      "n_splits": 5,
+      "accuracy_mean": 0.9807,
+      "accuracy_std": 0.0012,
+      "f1_macro_mean": 0.9807,
+      "f1_macro_std": 0.0012,
+      "method": "StratifiedKFold \u00b7 same RF hyperparameters as holdout model"
+    },
+    "timing_ms": {
+      "rf_train": 208.05,
+      "rf_predict_per_row_mean": 0.00237,
+      "note": "RF predict: mean ms per row over 10\u00d7 holdout batch (warm). AE: full-dataset encode once.",
+      "ae_train": 46232.08,
+      "ae_predict_per_row_mean": 0.014918
+    },
+    "standards_note": "Holdout = stratified train/test split. FPR is one-vs-rest (multiclass). CV = StratifiedKFold on full data before holdout fit. Latency = lab batch timing (not production wire latency)."
+  },
+  "isolation_forest": {
+    "decision_min": -0.19157470863906478,
+    "decision_max": 0.14872962519382898,
+    "anomaly_score_formula": "(-decision - min) / (max - min) clipped to [0,1]"
+  },
+  "classification_report_holdout": "              precision    recall  f1-score   support\n\n      Benign       0.96      0.98      0.97      4400\n  Suspicious       1.00      1.00      1.00      4400\n   Malicious       0.98      0.96      0.97      4400\n\n    accuracy                           0.98     13200\n   macro avg       0.98      0.98      0.98     13200\nweighted avg       0.98      0.98      0.98     13200\n",
+  "artifacts": {
+    "matplotlib_plots": [
+      "rf_confusion_matrix.png",
+      "ae_training_loss.png"
+    ],
+    "plotly_report": "metrics_dashboard.html"
+  },
+  "training_dataset_csv": "dataset/imported/cicids2017_style_realistic.csv",
+  "autoencoder": {
+    "keras_path": "ae_model.keras",
+    "scaler_path": "ae_scaler.joblib",
+    "trained_on": "benign-only rows in training split (fallback: all train if too few benign)",
+    "mse_percentile_10": 5.838510192150138e-05,
+    "mse_percentile_90": 0.23808218426855407,
+    "anomaly_score_formula": "(mse - p10) / (p90 - p10) clipped to [0,1]",
+    "train_wall_ms": 46232.08,
+    "predict_ms_per_row_mean_full_fit": 0.014918
+  }
+}
